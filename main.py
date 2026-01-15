@@ -32,8 +32,26 @@ def validate_lic(lic_key: str, cur_hwid: str) -> bool:
 
 
 def main():
-    ...
+    """
+    main body
+    """
+    cur_hwid = get_cur_hwid()
+    if not os.path.exists(LICENSE_FILE):
+        print("🔒 Программа не активирована.")
+        print(f"Ваш HWID: {cur_hwid}")
+        print("Отправьте этот HWID разработчику и получите лицензионный ключ.\n")
+        key = input("Введите лицензионный ключ: ").strip()
+        with open(LICENSE_FILE, "w") as f:
+            f.write(key)
+    else:
+        with open(LICENSE_FILE, "r") as f:
+            key = f.read().strip()
 
+    if not validate_lic(key, cur_hwid):
+        print("❌ Ошибка: неверный ключ или лицензия привязана к другому устройству!")
+
+    print("✅ Лицензия активирована! Запуск программы...")
+    input()
 
 if __name__ == "__main__":
     main()
