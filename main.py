@@ -31,3 +31,9 @@ def validate_lic(lic_key: str, cur_hwid: str) -> bool:
     return hmac.compare_digest(signature, expected_sig)
 
 
+def main():
+    ...
+
+
+if __name__ == "__main__":
+    main()
