@@ -5,22 +5,22 @@ from hashlib import sha256
 SECRET = b"MY_KEY"
 
 def generate_license(hwid: str, secret: bytes) -> str:
-    """Генерирует лицензионный ключ для заданного HWID."""
+    """Generates a license key for the given HWID."""
     signature = new(secret, hwid.encode(), sha256).hexdigest()
     return f"{hwid}.{signature}"
 
 def main():
-    parser = argparse.ArgumentParser(description="Генератор лицензионных ключей для HWID-защиты")
-    parser.add_argument("--hwid", required=True, help="HWID клиента (16 символов)")
-    parser.add_argument("--secret", required=True, help="Секретный ключ (в виде строки)")
+    parser = argparse.ArgumentParser(description="License key generator for HWID-based protection")
+    parser.add_argument("--hwid", required=True, help="Client HWID (16 characters)")
+    parser.add_argument("--secret", required=True, help="Secret key (as a string)")
     args = parser.parse_args()
     try:
         key = generate_license(args.hwid, args.secret.encode())
-        print("\n🔑 Сгенерированный лицензионный ключ:")
+        print("\n🔑 Generated license key:")
         print(key)
-        print("\nОтправьте этот ключ клиенту.")
+        print("\nSend this key to the client.")
     except Exception as e:
-        print(f"Ошибка: {e}")
+        print(f"Error: {e}")
         exit(1)
 
 if __name__ == "__main__":
