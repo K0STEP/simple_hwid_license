@@ -6,26 +6,21 @@ SECRET = b"MY_KEY"
 
 def generate_license(hwid: str, secret: bytes) -> str:
     """Генерирует лицензионный ключ для заданного HWID."""
-    if not hwid or len(hwid) != 16:
-        raise ValueError("HWID должен быть строкой из 16 символов")
     signature = new(secret, hwid.encode(), sha256).hexdigest()
     return f"{hwid}.{signature}"
 
 def main():
-    parser = argparse.ArgumentParser(description="License key generator for HWID-based protection")
-    parser.add_argument("--hwid", required=True, help="Client HWID (16 characters)")
-    parser.add_argument("--secret", required=True, help="Secret key (as a string)")
+    parser = argparse.ArgumentParser(description="Генератор лицензионных ключей для HWID-защиты")
+    parser.add_argument("--hwid", required=True, help="HWID клиента (16 символов)")
+    parser.add_argument("--secret", required=True, help="Секретный ключ (в виде строки)")
     args = parser.parse_args()
-    if len(args.hwid) != 16:
-        print("⚠️  HWID must be exactly 16 characters long")
-        exit(1)
     try:
-        key = generate_license(args.hwid, args.secret)
-        print("\n🔑 Generated license key:")
+        key = generate_license(args.hwid, args.secret.encode())
+        print("\n🔑 Сгенерированный лицензионный ключ:")
         print(key)
-        print("\nSend this key to the client.")
+        print("\nОтправьте этот ключ клиенту.")
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"Ошибка: {e}")
         exit(1)
 
 if __name__ == "__main__":
