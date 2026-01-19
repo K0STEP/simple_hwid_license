@@ -34,11 +34,11 @@ class HWIDL:
             with open(self.license_file, "w") as f:
                 f.write(key)
             if not self.validate():
-                print("❌ Ошибка: неверный ключ или лицензия привязана к другому устройству!")
+                print("❌ Error: invalid key or license is bound to another device!")
                 if os.path.exists(self.license_file):
                     os.remove(self.license_file)
                 sys.exit(1)
-            print("✅ Лицензия активирована!")
+        print("✅ License activated!")
 
 
 
