@@ -2,8 +2,6 @@ import argparse
 from hmac import new
 from hashlib import sha256
 
-SECRET = b"MY_KEY"
-
 def generate_license(hwid: str, secret: bytes) -> str:
     """Generates a license key for the given HWID."""
     signature = new(secret, hwid.encode(), sha256).hexdigest()
