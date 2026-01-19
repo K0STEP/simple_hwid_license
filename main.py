@@ -9,7 +9,7 @@ LICENSE_FILE = "license.key"
 
 def get_cur_hwid() -> str:
     """
-    :return: MAC-adress
+    :return: MAC address
     """
     mac = hex(uuid.getnode())[2:].upper()
     return mac
@@ -17,7 +17,7 @@ def get_cur_hwid() -> str:
 
 def validate_lic(lic_key: str, cur_hwid: str) -> bool:
     """
-    check license key
+    Check license key
     :param lic_key: license key from LICENSE_FILE
     :param cur_hwid: current hwid
     :return: TRUE if lic_key is correct
@@ -31,14 +31,14 @@ def validate_lic(lic_key: str, cur_hwid: str) -> bool:
 
 def main():
     """
-    main body
+    Main body
     """
     cur_hwid = get_cur_hwid()
     if not os.path.exists(LICENSE_FILE):
-        print("🔒 Программа не активирована.")
-        print(f"Ваш HWID: {cur_hwid}")
-        print("Отправьте этот HWID разработчику и получите лицензионный ключ.\n")
-        key = input("Введите лицензионный ключ: ").strip()
+        print("🔒 Program is not activated.")
+        print(f"Your HWID: {cur_hwid}")
+        print("Send this HWID to the developer and obtain a license key.\n")
+        key = input("Enter license key: ").strip()
         with open(LICENSE_FILE, "w") as f:
             f.write(key)
     else:
@@ -46,10 +46,11 @@ def main():
             key = f.read().strip()
 
     if not validate_lic(key, cur_hwid):
-        print("❌ Ошибка: неверный ключ или лицензия привязана к другому устройству!")
+        print("❌ Error: invalid key or license is bound to another device!")
 
-    print("✅ Лицензия активирована! Запуск программы...")
+    print("✅ License activated! Launching program...")
     input()
+
 
 if __name__ == "__main__":
     main()
