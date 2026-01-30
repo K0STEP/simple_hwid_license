@@ -151,9 +151,3 @@ if __name__ == "__main__":
   - Use **code obfuscation** (e.g., `pyarmor`)
   - Add **online activation** via a simple web API
   - Combine with other anti-piracy measures
-
----
-
-## 📄 License
-
-MIT License — free to use, modify, and distribute.
